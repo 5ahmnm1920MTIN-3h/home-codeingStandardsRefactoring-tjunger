@@ -2,7 +2,7 @@
 
 public class Obstacle : MonoBehaviour
 {
-Rigidbody2D rb;
+private Rigidbody2D rb;
 [SerializeField] private float MoveSpeed;
 
 private void Awake()
