@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
     private bool grounded;
     private bool gameOver = false;
+    private string triggerJump = "Jump";
+    private string debugDeleteMe = "DeleteMe";
+    private string groundTag = "Ground";
+    private string obstacleTag = "Obstacle";
+    private string deathAnim = "SantaDeath";
 
     private void Awake()
     {
@@ -32,10 +37,10 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = Vector2.up * jumpForce;
 
-        anim.SetTrigger("Jump");
+        anim.SetTrigger(triggerJump);
 
         GameManager.instance.IncrementScore();
-        Debug.Log("DeleteMe");
+        Debug.Log(debugDeleteMe);
     }
 
     private bool SetGameOverTrue()
@@ -45,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == groundTag)
         {
             grounded = true;
         }
@@ -53,10 +58,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Obstacle"){
+        if(collision.gameObject.tag == obstacleTag)
+        {
             GameManager.instance.GameOver();
             Destroy(collision.gameObject);
-            anim.Play("SantaDeath");
+            anim.Play(deathAnim);
             gameOver = SetGameOverTrue();
         }
     }
