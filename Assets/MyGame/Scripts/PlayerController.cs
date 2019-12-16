@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     Animator anim, anim2, anim3, anim4, anim5;
     [SerializeField] float jumpForce;
     
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,10 +27,6 @@ public class PlayerController : MonoBehaviour
             {
                 jump();
             }
-
-
-
-
         }
     }
 
@@ -55,10 +50,12 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)   {
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if(collision.gameObject.tag == "Ground")
         {
-            grounded = true;}
+            grounded = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,8 +67,4 @@ public class PlayerController : MonoBehaviour
             gameOver = SetGameOverTrue();
         }
     }
-
-
-
-
 }
