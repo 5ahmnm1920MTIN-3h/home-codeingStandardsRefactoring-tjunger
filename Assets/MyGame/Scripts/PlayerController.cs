@@ -5,7 +5,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
     [SerializeField] float jumpForce;
-    
+    private bool grounded;
+    private bool gameOver = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,9 +25,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    bool grounded;
-    bool gameOver = false;
 
     void jump()
     {
