@@ -45,7 +45,7 @@ Code der funktioniert aber schlecht strukturiert ist und stinkt
 ### 10 Code Smells die Eure Projekt betreffen können, inkl. Beschreibung und Beispiel.
 
 
-1. Magical String – String der mehr als einmal verwendet wird und immer wieder gehardcodet ist. GameObject Tags die verglichen werden sollte man als variable angeben.
+#### 1. Magical String – String der mehr als einmal verwendet wird und immer wieder gehardcodet ist. GameObject Tags die verglichen werden sollte man als variable angeben.
 
 Beispiel des Smells:
 ```c#
@@ -63,7 +63,7 @@ public static string mainScene = "MainScene";
     }
 ```
   
-2. Magical Value – Ein Wert wie z.B.: float oder int der ohne Beschreibung und Kontext verwendet wird. Die Angabe einer Entfernung bei einem Raycast. 
+#### 2. Magical Value – Ein Wert wie z.B.: float oder int der ohne Beschreibung und Kontext verwendet wird. Die Angabe einer Entfernung bei einem Raycast. 
 
 Beispiel des Smells:
 ```c#
@@ -81,7 +81,7 @@ Richtig:
         Destroy(gameObject);
 }
 ```
-3. Unnötige Methoden: Methoden die im gesamten Code nicht einmal ausgeführt werden, sollten gelöscht werden.
+#### 3. Unnötige Methoden: Methoden die im gesamten Code nicht einmal ausgeführt werden, sollten gelöscht werden.
 
 Beispiel des Smells:
 ```c#
@@ -95,7 +95,7 @@ void Start()
 void Update()
 {
 ``` 
-4. Unbenutze Namespaces angeben - nicht verwendete Namespaces die trotzdem angegeben sind. z.B: using System.Collections;  
+#### 4. Unbenutze Namespaces angeben - nicht verwendete Namespaces die trotzdem angegeben sind. z.B: using System.Collections;  
 
 Beispiel des Smells:
 ```c#
@@ -105,7 +105,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 ```
 
-5. Fehlende Angabe von Access Modifiern – private sollte immer angegeben werden auch wenn dies nicht vorgeschrieben ist damit es funktioniert. float number; -> private float number;  
+#### 5. Fehlende Angabe von Access Modifiern – private sollte immer angegeben werden auch wenn dies nicht vorgeschrieben ist damit es funktioniert. float number; -> private float number;  
 
 Beispiel des Smells:
 ```c#
@@ -117,7 +117,7 @@ Richtig:
 private string defaultText;
 ```
 
-6. Kommentare: Zu viel unnötige Kommentare können stören und sind oft überflüssig.  
+#### 6. Kommentare: Zu viel unnötige Kommentare können stören und sind oft überflüssig.  
 
 Beispiel des Smells:
 ```c#
@@ -138,7 +138,7 @@ public void SetResult()
 }
 ```
 
-7. Poor formating: Ein schlecht formatierter Code ist unangenehm zu lesen und nachzuvollziehen, vor allem für andere. Beispiele sind unnötige Leerzeichen oder zu wenig oder zu viele Tabulatorstopps.
+#### 7. Poor formating: Ein schlecht formatierter Code ist unangenehm zu lesen und nachzuvollziehen, vor allem für andere. Beispiele sind unnötige Leerzeichen oder zu wenig oder zu viele Tabulatorstopps.
 
 Beispiel des Smells:
 ```c#
@@ -169,7 +169,7 @@ Richtig:
 }
 ```
 
-8. Doppelter Code: Ein Code kommt zwei mal vor.  
+#### 8. Doppelter Code: Ein Code kommt zwei mal vor.  
 
 Beispiel des Smells:
 ```c#
@@ -186,7 +186,7 @@ Beispiel des Smells:
 }
 ```
 
-9. Falsche Klammern Setzung – Die Klammern werden nicht einheitlich oder unklar gesetzt.
+#### 9. Falsche Klammern Setzung – Die Klammern werden nicht einheitlich oder unklar gesetzt.
 
 Beispiel des Smells:
 ```c#
@@ -204,24 +204,78 @@ Richtig:
     }
 ```
 
-10. Klasse zu lange – Klasse die mehr als 400 Zeilen Code hat. GameManager und MenuManager haben geteilt jeweils weniger als 400 Zeilen Code.    
+#### 10. Klasse zu lange – Klasse die mehr als 400 Zeilen Code hat. GameManager und MenuManager haben geteilt jeweils weniger als 400 Zeilen Code.    
 
 Beispiel des Smells:
 Klasse mit 400 Zeichen (habe keinen CodeAusschnitt wegen Umfang inkludiert)
 
-# README
 
-## Development Platform
 
-- OS: MacOS 10.14.3
-- Unity Version: 2019.1.14f1
-- Visual Studio Code Version: 1.33.0
-- Scripting Runtime Version: .NET 4.x Equivalent
-- API Compatibility Level: .NET 2.0
 
-## Testcase
-Play drücken, über drei Hindernisse springen, gegen das vierte laufen, restart.
 
-## Copyright Game
 
-SantaRun by smeerws
+# Santa Run
+
+### Project description: 
+This is a simple 2D side-scroll game. The Santa runs from left to right and has to avoid some obstacles by jumping over them.
+The game ends when the Santa hits an obstacle.  The goal is to avoid as many obstacles as possible.
+
+### Development platform: 
+Windows 10, Unity version 2019.1.14f1, Visual Studio Community 2017, Scripting Runtime Version: .NET 4.0
+
+### Target platform: 
+WebGl and Standalone, RefRes: 1920 * 1080
+
+
+### Visuals: 
+<div>
+<img src = "./Screenshots/sketch-SantaRun.JPG" width = "500">
+</div>
+
+[![SANTA RUN](https://i9.ytimg.com/vi/2C74XxBkFfI/mq1.jpg?sqp=CNWnze8F&rs=AOn4CLBrmO-tJ3gQ2BNeMxvrmQcsIhhcgQ)](https://www.youtube.com/embed/2C74XxBkFfI "Santa RUN")
+
+https://www.youtube.com/embed/2C74XxBkFfI
+
+### Necessary setup/execution steps: 
+For playing the game go to: 
+* WebGL: https://hs-teaching.github.io/WegGL-SantaRun/
+* Standalone (.exe): Clone project and publish as Standalone
+
+For development: Clone this project. 
+
+### Third party material: 
+* This game is based on the game Santa Run developed by Raja Biswas in the Udemy-course Unity 2018 Game Developmen by Example 
+[Unity 2018 Game Development by Example](https://www.udemy.com/course/unity-2d-game-development-by-example/).
+* Sprites are used from https://www.gameart2d.com/santa-claus-free-sprites.html
+
+
+### Project state: 
+Program is working correctly, no errors, refactoring is needed.
+Refactoring needed: 
+* del not used namespaces
+* del unused variables
+* del needless debugs
+* del needless comments
+* del unused methods
+* rename variables (coding standards)
+* rename methods (coding standards)
+* fix poor conditional clauses
+* fix poor formating
+* replace magic string
+* replace magic number
+
+### Limitations: 
+Only one level is implemented. 
+
+### Lessons Learned: 
+* Create 2D Scenes
+* Use Quads for moving Backgrounds (Textures instead of Sprites)
+* Use Particle System for snowing effect.
+* Use Scene Management for switching between Scenes
+* Create and control Animations (Animation, Animator and Scripts)
+* Use the singelton pattern
+* Spawn objects
+* Use UI elements and manipulate UI elements with scrips
+
+
+Copyright by smeerws
