@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    private string mainScene = "MainScene";
+    public static string mainScene = "MainScene";
     
     public void Play()
     {
