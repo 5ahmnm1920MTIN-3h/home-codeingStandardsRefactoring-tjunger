@@ -17,7 +17,7 @@ leichter zu lesen und nachvollziehbar sein.
 #### Nachteile
 
 - unnötige Arbeit da Endprodukt oft das gleiche bleibt
-- Durch Refacturing kann das ein Fehler enstehen (Code kapput machen)
+- Durch falsches Refacturing kann ein Fehler enstehen (Code kapput machen)
 
 ### Was sind die Refactoring-Schritte?
 
@@ -31,12 +31,12 @@ leichter zu lesen und nachvollziehbar sein.
 - verständlich für andere Personen
 - keine Redundanzen
 
-DRY - Mehrfache Nennungen von Code verhindern, also mit Variablen arbeiten
-KISS - Der Code soll so einfach wie möglich gestaltet werden
-YAGNI - "Extras", die nicht unbedingt für die Funktion des Programms nötig sind, sollen entfernt werden
-Principle of Least Surprise - Die Funktionen sollten so sein, wie man es sich erwartet
-SoC - Der Code sollte in klare Abschnitte gegliedert sein
-Single Responsibility Principle - Klassen sollten nur für eine Sache zuständig sein und nicht mehrere Funktionen erfüllen
+DRY - Mehrfache Nennungen von Code verhindern, also mit Variablen arbeiten  
+KISS - Der Code soll so einfach wie möglich gestaltet werden  
+YAGNI - "Extras", die nicht unbedingt für die Funktion des Programms nötig sind, sollen entfernt werden  
+Principle of Least Surprise - Die Funktionen sollten so sein, wie man es sich erwartet  
+SoC - Der Code sollte in klare Abschnitte gegliedert sein  
+Single Responsibility Principle - Klassen sollten nur für eine Sache zuständig sein und nicht mehrere Funktionen erfüllen  
 
 ### Was versteht man unter Code Smell?
 
@@ -45,18 +45,169 @@ Code der funktioniert aber schlecht strukturiert ist und stinkt
 ### 10 Code Smells die Eure Projekt betreffen können, inkl. Beschreibung und Beispiel.
 
 
-- Kurze Namen: nur Buchstaben, keine richtige Beschreibung.
-- Kommentare: Zu viel unnötige Kommentare können stören und sind oft überflüssig.
-- Ausgeschlagenes Erbe: Unterklassen erben Methoden und Daten, die sie gar nicht brauchen.
-- Nichtsagende Namen: Variablen, Klassen usw. sollten so benannt sein das man die Funktion direkt ablesen kann.
-- Doppelter Code: Ein Code kommt zwei mal vor.
-- Datenklasse: Klassen mit Feldern und Zugriffsmethoden ohne Funktionalität.
-- Datenklumpen: Eine Gruppe von Objekten, welche häufig zusammen vorkommen.
-- Unangebrachte Intimität: Zwei Klassen haben zu enge Verflechtungen miteinander.
-- Faule Klasse: Eine Klasse leistet zu wenig, um ihre Existenz zu rechtfertigen.
-- Middle Man (Vermittler): Eine Klasse delegiert alle Methodenaufrufe an eine andere Klasse.
+1. Magical String – String der mehr als einmal verwendet wird und immer wieder gehardcodet ist. GameObject Tags die verglichen werden sollte man als variable angeben.
 
-Beispiele: Finden Sie in meinen Commits :)
+Beispiel des Smells:
+```c#
+    public void Play(){
+        SceneManager.LoadScene("MainScene");
+    }
+```
+Richtig:
+```c#
+public static string mainScene = "MainScene";
+    
+    public void Play()
+    {
+        SceneManager.LoadScene(mainScene);
+    }
+```
+  
+2. Magical Value – Ein Wert wie z.B.: float oder int der ohne Beschreibung und Kontext verwendet wird. Die Angabe einer Entfernung bei einem Raycast. 
+
+Beispiel des Smells:
+```c#
+if(transform.position.x < -15f)
+    {
+        Destroy(gameObject);
+}
+```
+Richtig:
+```c#
+    private float leftBorder = -15f;
+
+    if(transform.position.x < leftBorder)
+    {
+        Destroy(gameObject);
+}
+```
+3. Unnötige Methoden: Methoden die im gesamten Code nicht einmal ausgeführt werden, sollten gelöscht werden.
+
+Beispiel des Smells:
+```c#
+// Start is called before the first frame update
+void Start()
+{
+        
+}
+
+// Update is called once per frame
+void Update()
+{
+``` 
+4. Unbenutze Namespaces angeben - nicht verwendete Namespaces die trotzdem angegeben sind. z.B: using System.Collections;  
+
+Beispiel des Smells:
+```c#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+```
+
+5. Fehlende Angabe von Access Modifiern – private sollte immer angegeben werden auch wenn dies nicht vorgeschrieben ist damit es funktioniert. float number; -> private float number;  
+
+Beispiel des Smells:
+```c#
+string defaultText;
+```
+
+Richtig:
+```c#
+private string defaultText;
+```
+
+6. Kommentare: Zu viel unnötige Kommentare können stören und sind oft überflüssig.  
+
+Beispiel des Smells:
+```c#
+public void SetResult()
+{
+    // set the result from the SubtractNumbers Method
+    result.text = SubstractNumbers().ToString();
+
+    // remove access from inputField
+    InputField1.interactable = false;
+    // remove access from the second inputField
+    InputField2.interactable = false;
+
+    // sub_Numbers is false
+    btn_sub_Numbers.interactable = false;
+    // reset is true
+    btn_reset.interactable = true;
+}
+```
+
+7. Poor formating: Ein schlecht formatierter Code ist unangenehm zu lesen und nachzuvollziehen, vor allem für andere. Beispiele sind unnötige Leerzeichen oder zu wenig oder zu viele Tabulatorstopps.
+
+Beispiel des Smells:
+```c#
+        private     void OnTriggerEnter2D(Collider2D collision){
+if(collision.gameObject.tag == obstacleTag){
+            GameManager.instance.GameOver();
+
+
+            
+        Destroy(collision.gameObject);
+            anim.Play(deathAnim);
+gameOver = SetGameOverTrue();
+}}}
+```
+
+Richtig:
+```c#
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == obstacleTag)
+        {
+            GameManager.instance.GameOver();
+            Destroy(collision.gameObject);
+            anim.Play(deathAnim);
+            gameOver = SetGameOverTrue();
+        }
+    }
+}
+```
+
+8. Doppelter Code: Ein Code kommt zwei mal vor.  
+
+Beispiel des Smells:
+```c#
+    public void Exit()
+    {
+        Application.Quit();
+    }
+}
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+}
+```
+
+9. Falsche Klammern Setzung – Die Klammern werden nicht einheitlich oder unklar gesetzt.
+
+Beispiel des Smells:
+```c#
+    public void Play()
+            {
+        SceneManager.LoadScene(mainScene);
+    }
+```
+
+Richtig:
+```c#
+    public void Play()
+    {
+        SceneManager.LoadScene(mainScene);
+    }
+```
+
+10. Klasse zu lange – Klasse die mehr als 400 Zeilen Code hat. GameManager und MenuManager haben geteilt jeweils weniger als 400 Zeilen Code.    
+
+Beispiel des Smells:
+Klasse mit 400 Zeichen (habe keinen CodeAusschnitt wegen Umfang inkludiert)
 
 # README
 
